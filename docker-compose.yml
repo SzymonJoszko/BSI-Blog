@@ -1,0 +1,24 @@
+services:
+  postgres:
+    image: 'postgres:15.1'
+    env_file:
+      - '/secrets/db.env'
+    ports:
+      - '5432:5432'
+    volumes:
+      - 'postgres:/var/lib/postgresql/data'
+
+  bsi_blog:
+    build: '.'
+    depends_on:
+      - 'postgres'
+    volumes:
+      - '.:/app'
+    ports:
+      - '3000:3000'
+    env_file:
+      - '/secrets/bsi_blog.env'
+    command: rails s -b 0.0.0.0
+
+volumes:
+  postgres: {}
