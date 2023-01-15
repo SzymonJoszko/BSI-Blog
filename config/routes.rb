@@ -7,4 +7,6 @@ Rails.application.routes.draw do
 
   post 'sign_in', to: 'sessions#create'
   delete 'logout', to: 'sessions#destroy'
+
+  post 'sign_up', to: 'registrations#create'
 end
