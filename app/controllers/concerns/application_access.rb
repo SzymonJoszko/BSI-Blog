@@ -1,6 +1,8 @@
 module ApplicationAccess
     def current_user
-        User.find(session[:user_id]) if session[:user_id]
+        begin
+            User.find(session[:user_id]) if session[:user_id]
+        end
     end
 
     def check_auth
