@@ -13,7 +13,7 @@ class UsersController < ApplicationController
 
   # GET /users/1 or /users/1.json
   def show
-    render json: @users
+    render json: @user
   end
 
   # POST /users or /users.json

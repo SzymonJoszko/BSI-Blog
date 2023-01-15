@@ -14,7 +14,7 @@ module ApplicationAccess
     end
 
     def check_admin_role
-        unless current_user&.admin? || current_user&.superadmin?
+        unless current_user&.has_admin_access?
             render(json: 'Permission denied.')
         end
     end

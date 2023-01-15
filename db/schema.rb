@@ -10,13 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_01_14_233244) do
+ActiveRecord::Schema[7.0].define(version: 2023_01_15_113230) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   # Custom types defined in this database.
   # Note that some types may not work with other database engines. Be careful if changing database.
   create_enum "user_type_enum", ["default", "admin", "superadmin"]
+
+  create_table "posts", force: :cascade do |t|
+    t.string "title"
+    t.text "text"
+    t.integer "owner_id", null: false
+    t.boolean "published", default: false, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "email", null: false

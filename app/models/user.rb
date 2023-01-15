@@ -15,4 +15,8 @@ class User < ApplicationRecord
     def admin?
         user_type.to_sym == :admin
     end
+
+    def has_admin_access?
+        %i[admin superadmin].include? user_type.to_sym
+    end
 end
