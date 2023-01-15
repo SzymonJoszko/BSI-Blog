@@ -1,8 +1,8 @@
 class UsersController < ApplicationController
-  before_action :check_auth
+  # before_action :check_auth
   before_action :set_user, only: %i[ show update destroy ]
-  before_action :check_superadmin_role, except: %i[ show update ]
-  before_action :check_access
+  # before_action :check_superadmin_role, except: %i[ show update ]
+  # before_action :check_access
 
   # GET /users or /users.json
   def index

@@ -1,8 +1,8 @@
 class PostsController < ApplicationController
   before_action :set_post, only: %i[show update destroy]
-  before_action :check_auth, except: %i[show index]
-  before_action :check_published_status, only: %i[show]
-  before_action :check_owner_access, only: %i[update destroy]
+  # before_action :check_auth, except: %i[show index]
+  # before_action :check_published_status, only: %i[show]
+  # before_action :check_owner_access, only: %i[update destroy]
 
 
   # GET /posts or /posts.json
