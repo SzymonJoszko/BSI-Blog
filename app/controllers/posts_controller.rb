@@ -3,6 +3,7 @@ class PostsController < ApplicationController
   before_action :check_auth, except: %i[show index]
   before_action :check_published_status, only: %i[show]
   before_action :check_owner_access, only: %i[update destroy]
+  before_action :check_index_mode, only: %i[index]
 
 
   # GET /posts or /posts.json
@@ -80,5 +81,11 @@ class PostsController < ApplicationController
       unless @post&.owner_id == current_user.id
         render json: 'Permission denied.', status: :forbidden
       end
+    end
+
+    def check_index_mode
+      return unless params[:mode]
+
+      check_auth
     end
 end

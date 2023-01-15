@@ -12,7 +12,7 @@ class SessionsController < ApplicationController
 
     # DELETE /logout
     def destroy
-        session[:user_id] = nil
+        session.delete(:user_id)
         render json: 'Logged out'
     end
 end
