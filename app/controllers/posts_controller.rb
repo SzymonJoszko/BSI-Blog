@@ -14,7 +14,7 @@ class PostsController < ApplicationController
     puts @mode
     case @mode
       when 'my' then  render json: Post.where(owner_id: current_user.id).order(:id)
-      when 'all' then render json: (current_user.has_admin_access? ? Post.all.order(:published, :id) : 'Permission denied.')
+      when 'all' then render json: (current_user.has_admin_access? ? Post.all.order(:published, :id) : 'Permission denied.'), status: (current_user.has_admin_access? ? :ok : :forbidden)
       else
         render json: Post.all.published
     end
@@ -57,7 +57,7 @@ class PostsController < ApplicationController
       begin
         @post = Post.find(params[:id])
       rescue ActiveRecord::RecordNotFound
-        render json: 'Post not found.'
+        render json: 'Post not found.', status: :not_found
       end
     end
 
@@ -70,7 +70,7 @@ class PostsController < ApplicationController
       return if current_user.has_admin_access? || @post&.owner_id == current_user.id
 
       unless @post&.published
-        render json: 'Permission denied.'
+        render json: 'Permission denied.', status: :forbidden
       end
     end
 
@@ -78,7 +78,7 @@ class PostsController < ApplicationController
       return if current_user.superadmin?
   
       unless @post&.owner_id == current_user.id
-        render json: 'Permission denied.'
+        render json: 'Permission denied.', status: :forbidden
       end
     end
 end

@@ -6,7 +6,7 @@ class SessionsController < ApplicationController
             session[:user_id] = user.id
             render json: 'Logged in succesfully'
         else
-            render json: 'Invalid email or password'
+            render json: 'Invalid email or password', status: :unprocessable_entity
         end
     end
 
