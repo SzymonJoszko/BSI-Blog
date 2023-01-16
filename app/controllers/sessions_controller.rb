@@ -8,7 +8,11 @@ class SessionsController < ApplicationController
             session[:user_id] = user.id
             render json: 'Logged in succesfully'
         else
-            render json: 'Invalid email or password', status: :unprocessable_entity
+            if (!user.present?)
+                render json: 'User with this email does not exist', status: :unprocessable_entity
+            else
+                render json: 'Invalid password', status: :unprocessable_entity
+            end
         end
     end
 
