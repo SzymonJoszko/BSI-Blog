@@ -7,7 +7,7 @@ module UsersAccess
         begin
           @user = User.find(params[:id])
         rescue ActiveRecord::RecordNotFound
-          render json: (current_user.superadmin? ? 'User not found.' : 'Permission denied.')
+          render json: (current_user.superadmin? ? 'User not found.' : 'Permission denied.'), status: (current_user.superadmin? ? :not_found : :forbidden)
         end
     end
 
@@ -17,7 +17,7 @@ module UsersAccess
         set_user
   
         unless @user&.id == current_user.id
-          render json: 'Permission denied.'
+          render json: 'Permission denied.', status: :forbidden
         end
     end
 end
